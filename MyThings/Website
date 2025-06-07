@@ -1,0 +1,14 @@
+	A poem website where people can write, read, and comment is concise and clear.
+	The poems express their thoughts, feelings, and emotions.
+Goal
+	This project demonstrates that we can create a website quickly, which requires both front-end and back-end technical skills.
+Potential Influence
+	This try is a comprehensive process to serve users. It is great! There will be someone who likes our site. I believe it.
+Deployment
+	The website can be deployed on a cloud server, such as Amazon Web Services (AWS), Aliyun, or Volcano. We may need to address the Nginx and PHP servers. This process will take some effort.
+Functions
+Comments add, update, view, delete.
+Users can read all the public posts
+Users can follow or unfollow others.
+Users can manage their posts and comments.
+	
