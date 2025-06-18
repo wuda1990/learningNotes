@@ -1,0 +1,70 @@
+
+在 CentOS Stream 9 上安装和配置 Apache、PHP 8.2、MySQL 和 Node.js，以部署一个基于 Laravel 和 Vue 3 的应用程序，通常需要按照以下步骤进行：
+chown -R apache:apache /var/www/laravel
+1. 准备系统环境：
+    更新系统包
+    sudo dnf update -y
+    安装 EPEL 存储库
+    sudo dnf install epel-release -y
+2. 安装 Apache
+    sudo dnf install httpd -y
+    sudo systemctl start httpd
+    sudo systemctl enable httpd
+3. 安装 PHP，指定版本8.2
+    sudo dnf install https://rpms.remirepo.net/enterprise/remi-release-9.rpm
+    sudo dnf module list php
+    sudo dnf module enable php:remi-8.2
+    sudo dnf install php php-cli php-fpm php-mysqlnd php-zip php-xml php-mbstring php-curl php-json php-bcmath -y
+    sudo systemctl restart httpd
+4. 安装 Node.js,指定版本22
+    sudo dnf module install nodejs:22 -y
+    node -v
+    npm -v
+5. 安装 MySQL
+    sudo dnf install mysql-server -y
+    sudo systemctl start mysqld
+    sudo systemctl enable mysqld
+6. 部署laravel应用
+    安装 Composer
+        php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+        php composer-setup.php
+        php -r "unlink('composer-setup.php');"
+        sudo mv composer.phar /usr/local/bin/composer
+    clone Laravel 应用
+        cd /var/www
+        git clone git@github.com:username/repository.git laravel-app
+        chown -R apache:apache /var/www/laravel-app
+        cd laravel-app
+        cp .env.example .env
+        php artisan key:generate
+        vi .env
+        修改数据库配置
+    composer install
+    php artisan migrate
+    安装前端依赖并构建资源
+        npm install
+        npm run build
+    配置 Apache 虚拟主机
+        sudo vi /etc/httpd/conf.d/laravel.conf
+        添加以下内容：
+        ...
+        <VirtualHost *:80>
+            ServerName http://115.159.64.159
+            DocumentRoot /var/www/laravel/public
+            <Directory /var/www/laravel/public>
+                AllowOverride All
+                Require all granted
+            </Directory>
+            ErrorLog /var/www/laravel/storage/logs/error.log
+            CustomLog /var/www/laravel/storage/logs/access.log combined
+        </VirtualHost>
+        ...
+    启用 Apache 重写模块
+        确认在 /etc/httpd/conf/httpd.conf 文件中，mod_rewrite 已启用：
+            LoadModule rewrite_module modules/mod_rewrite.so
+        sudo systemctl restart httpd
+7。 配置防火墙
+    sudo firewall-cmd --permanent --add-service=http
+    sudo firewall-cmd --permanent --add-service=https
+    sudo firewall-cmd --reload
+8. 注册域名 panda-rhythm.cn
