@@ -68,3 +68,4 @@ chown -R apache:apache /var/www/laravel
     sudo firewall-cmd --permanent --add-service=https
     sudo firewall-cmd --reload
 8. 注册域名 panda-rhythm.cn
+y
