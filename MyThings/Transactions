@@ -1,0 +1,2 @@
+We need to keep the transaction minimal in application which can execute in a short time.
+This can reduce the risk of race condition.
