@@ -1,4 +1,5 @@
 Concurrency and Isolation Levels of Database Transactions
+
 Nowadays, by default, data reading and writing rely on databases, which have become a basic infrastructure. Transactions within databases provide a reliable guarantee for the correctness of applications. If we trace back to how developers worked before transactions existed, we can understand the tricky problems that transactions solve for us.
 Suppose there were no transactions and we were developing a client application. What problems would we encounter when reading from and writing to the database?
 The database or the machine it runs on may crash at any time.
@@ -53,12 +54,12 @@ Explicit Locks
 However, there are many cases where operations cannot be converted into atomic operations. Generally, after reading the data, the in-memory modification logic is very complex and requires calculation, which cannot be done in a single query. For another example, if we need to call a third-party service in the middle, explicit locks can be used.
 Code block:
 sql
-BEGIN TRANSACTION; 
+BEGIN TRANSACTION;
 -- 1. Lock the relevant record to prevent concurrent modifications
-SELECT * FROM figures WHERE name = 'robot' AND game_id = 222 FOR UPDATE; 
+SELECT *FROM figures WHERE name = 'robot' AND game_id = 222 FOR UPDATE;
 -- 2. Check whether the move is valid, then update the position of the piece that was returned by the previous SELECT
 -- 3. (Business logic for validating the move, e.g., checking if the position is within bounds, movement speed does not exceed the limit, etc.)
-UPDATE figures SET position = 'c4' WHERE id = 1234; 
+UPDATE figures SET position = 'c4' WHERE id = 1234;
 -- 4. Commit the transaction to release the lock
 COMMIT;
 Here, we first need to query the figure and perform some logical validation. When moving the figure, it must comply with certain game-defined rules, such as the movement position not being out of bounds and the movement speed not exceeding the specified limit. Only when these rules are satisfied can we modify the figure's position.
@@ -79,16 +80,16 @@ Write Skew seems to be an abstract concept. It is abstract because it describes 
 Conference room booking scenario: Two bookings cannot be for the same conference room at the same time.
 Code block:
 sql
-BEGIN TRANSACTION; 
+BEGIN TRANSACTION;
 -- 1. Check for any existing bookings that overlap with the period of noon-1pm
-SELECT COUNT(*) FROM bookings WHERE room_id = 123 AND 
-end_time > '2015-01-01 12:00' AND start_time < '2015-01-01 13:00'; 
+SELECT COUNT(*) FROM bookings WHERE room_id = 123 AND
+end_time > '2015-01-01 12:00' AND start_time < '2015-01-01 13:00';
 -- 2. If the previous query returned zero (no overlapping bookings)
 INSERT INTO bookings
 (room_id, start_time, end_time, user_id)
-VALUES (123, '2015-01-01 12:00', '2015-01-01 13:00', 666); 
+VALUES (123, '2015-01-01 12:00', '2015-01-01 13:00', 666);
 -- 3. Commit the transaction
-COMMIT; 
+COMMIT;
 Website usernames cannot be duplicated. When inserting a new user, it is necessary to verify whether the username already exists.
 In a game, two players cannot move to the same position. When moving a player, it is necessary to verify whether the target position is occupied.
 All these examples may lead to Write Skew caused by phantom reads in concurrent situations. They all follow a pattern: the client reads data that meets certain conditions from the database, performs calculations based on this data, and then writes data to the database.
@@ -100,14 +101,14 @@ Similarly, automatic version conflict detection or some optimistic locking mecha
 Explicit locks can only be applied to rows that already exist. They can solve the above problem of doctors on duty because the doctor shifts already exist. By using the following SQL to lock all rows with shift_id = 1234, other transactions that want to modify shift 1234 are blocked, ensuring that this part of the logic is executed serially.
 Code block:
 sql
-BEGIN TRANSACTION; 
+BEGIN TRANSACTION;
 -- 1. Lock all doctors on duty for shift 1234
-SELECT * FROM doctors
+SELECT *FROM doctors
 WHERE on_call = true
-AND shift_id = 1234 FOR UPDATE; 
+AND shift_id = 1234 FOR UPDATE;
 -- 2. Update Alice's on-call status to false
 UPDATE doctors
-SET on_call = false WHERE name = 'Alice' AND shift_id = 1234; 
+SET on_call = false WHERE name = 'Alice' AND shift_id = 1234;
 -- 3. Commit the transaction to release the lock
 COMMIT;
 Explicit locks are ineffective for the other examples mentioned earlier. For conference room booking, user creation, and player movement, the query conditions in the first step may return no data or only partial data. However, when specific writes are performed in the third step, the results returned by the query conditions change (data exists), which makes it impossible for us to lock in advance.
@@ -124,8 +125,8 @@ As mentioned earlier, the concurrency problem of conference room booking cannot 
 Code block:
 sql
 -- 1. Query for overlapping bookings for room 123 between 12:00 and 13:00 on 2018-01-01
-SELECT * FROM bookings WHERE room_id = 123 AND 
-end_time > '2018-01-01 12:00' AND start_time < '2018-01-01 13:00'; 
+SELECT* FROM bookings WHERE room_id = 123 AND
+end_time > '2018-01-01 12:00' AND start_time < '2018-01-01 13:00';
 The database uses predicate locks to solve this problem.
 When Transaction A queries based on a certain condition, the database attempts to add a shared predicate lock based on that query condition. If another Transaction B performs a write operation at the same time, and the record written by B meets the query condition of A, A will wait until B is completed.
 After Transaction A adds the predicate lock, if another Transaction C attempts to perform a write operation, it needs to wait until A is completed.
@@ -134,6 +135,7 @@ Range Locks (Index-Range Locks)
 Predicate locks are very time-consuming because they require checking the specified query conditions for all ongoing read and write transactions. Gap locks are a simplification of predicate locks. In the example of conference room booking, you can create an index for room_id. Then, when adding a read lock, a read lock is added to the index record of room_id = 123. You can also add a lock for time—when adding a read lock, a gap lock is added for a specific time range.
 After simplification, coarse-grained locks replace predicate locks, but they can still prevent Write Skew, and query performance is significantly improved.
 Summary
+
 1. Isolation Levels Defined by ANSI SQL
 The isolation levels discussed above are mainly those defined by ANSI SQL:
 Read Uncommitted: The database does nothing (no isolation guarantees).
