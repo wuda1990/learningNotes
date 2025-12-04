@@ -9,6 +9,7 @@ Deployment
 Functions
 Comments add, update, view, delete.
 Users can read all the public posts
-Users can follow or unfollow others.
 Users can manage their posts and comments.
+//Todo:
+Users can follow or unfollow others.
 Upload pictures.
