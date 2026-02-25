@@ -8,7 +8,7 @@ Deployment
 	The website can be deployed on a cloud server, such as Amazon Web Services (AWS), Aliyun, or Volcano. We may need to address the Nginx and PHP servers. This process will take some effort.
 Functions
 Comments add, update, view, delete.
-Users can read all the public posts
+Users can read all the public posts.
 Users can manage their posts and comments.
 //Todo:
 Users can follow or unfollow others.

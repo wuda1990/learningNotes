@@ -1,0 +1,17 @@
+Personal Growth Reflection After the Spring Festival
+
+The Spring Festival is not only a time for family reunion, but also a period for self-reflection. During this holiday, I have observed a lot and gained profound insights about life and myself, which have helped me grow a little more and become clearer about my future path.
+
+I gradually realized that no one is omnipotent. After the Spring Festival, it seems inevitable to be compared with others—their achievements, lifestyles and life rhythms are all used as benchmarks to measure me. For a sensitive person like me, such comparisons easily make me lose myself and underestimate my own value. But after calming down, I know clearly that I have done well enough. I have been working hard in my own way, stepping forward steadily every day, and there is no need to deny all my efforts because of others’ evaluations.
+
+Today, I watched a video that left a deep impression on me. It said, “A man need to hold on to some perspectives.” This sentence hit me deeply. It means that we should neither underestimate ourselves nor overestimate ourselves. Underestimating ourselves will make us lose the courage to move forward, while overestimating ourselves will make us blind and complacent. Maintaining a rational and objective attitude towards ourselves is the foundation of growth.
+
+I also have a clear observation about the reality around me: in China, many people survive by power. With power, many things seem to come naturally without much effort. I have to admit this fact calmly, but it does not make me feel discouraged. Instead, it makes me understand that everyone has their own path to take, and I don’t need to follow the footsteps of others blindly.
+
+During the holiday, I found that many people around me want to be their own bosses. They hope to get rid of exploitation, have their own careers, and live a life that they can control. I fully understand this desire, but I also know clearly how difficult it is to achieve this goal. Only a handful of people can succeed in starting their own businesses, and the road is full of unknowns and challenges.
+
+I know my own shortcomings: I am not good at communicating with others, not very flexible in dealing with things, and I am born sensitive. These characteristics make it more difficult for me to take the road of starting a business or integrating into a complex environment. But I also have my own advantages—I am more focused than many people. I believe that focus is the key to breaking through all difficulties.
+
+In the days to come, I will no longer be troubled by comparisons, nor will I be discouraged by my own shortcomings. I will focus my time and energy not only on improving my professional skills, but also on learning business knowledge—I truly believe that changes will follow. Specifically, I can delve into e-commerce and stock businesses, observe the needs of ordinary people, and above all, I must do more, see more, read more, and reflect more. What matters most is that I need to elevate my way of thinking, take initiative to get things done, and never wait for others to assign tasks to me. I know that change does not happen overnight, and every small step of effort will add up to significant progress. As long as I stay true to myself, keep moving forward, and maintain a rational attitude towards myself and reality, I will surely embrace a better future and become the person I strive to be.
+
+
